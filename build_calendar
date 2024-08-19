@@ -1,0 +1,6 @@
+create or replace table birdies-golf-data.18birdies_raw_data.calendar as
+  
+  SELECT
+    DATE_SUB(CURRENT_DATE(), INTERVAL n DAY) AS calendar_date
+  FROM
+    UNNEST(GENERATE_ARRAY(0, DATE_DIFF(CURRENT_DATE(), DATE('2019-01-01'), DAY))) AS n
