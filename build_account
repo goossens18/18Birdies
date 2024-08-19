@@ -1,3 +1,5 @@
+-- This query is used to create a User Table. This will list out the User and all contact info from the data extract from 18Birdies.
+
 create or replace table birdies-golf-data.18birdies_raw_data.account as
 
 select distinct
