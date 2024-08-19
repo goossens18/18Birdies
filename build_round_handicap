@@ -1,0 +1,50 @@
+create or replace table birdies-golf-data.18birdies_raw_data.daily_handicap as
+
+with t1 as (
+  select
+    *,
+    row_number() over (partition by date_played order by current_handicap asc) as best_of_day
+  from `18birdies_raw_data.round_recap`
+),
+
+t2 as (
+  select 
+    *
+  from t1
+  where best_of_day = 1
+
+),
+
+effective_dates as (
+  select 
+    *,
+    coalesce(lead(date_played) over (order by date_played),current_date()+1) as effective_to
+  from t2
+),
+
+t3 as (
+
+select 
+  c.*,
+  round(ed.current_handicap,2) as daily_handicap
+from `18birdies_raw_data.calendar` c
+cross join effective_dates ed 
+where c.calendar_date between ed.date_played and ed.effective_to - 1
+),
+
+t4 as (
+
+select 
+  t3.*,
+  date_add(calendar_date, interval -1 year) as previous_year_date
+from t3
+
+)
+
+select 
+  t4.calendar_date,
+  t4.daily_handicap,
+  t3.daily_handicap as previous_year_handicap
+from t4
+left join t3 on t4.previous_year_date = t3.calendar_date
+order by t4.calendar_date

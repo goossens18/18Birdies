@@ -1,0 +1,79 @@
+create or replace table birdies-golf-data.18birdies_raw_data.round_detail as
+
+with build_detail as (
+ 
+  select *
+  from birdies-golf-data.18birdies_raw_data.round_summary
+
+),
+
+unpivot_data as (
+  select 
+    round_id,
+    course_id,
+    date_played,
+    CAST(REGEXP_EXTRACT(holenumber, r'hole_(\d+)_score') AS INT64) AS hole_number,
+    score
+  from build_detail 
+  unpivot(
+    score for holenumber in (
+      hole_1_score,
+      hole_2_score,
+      hole_3_score,
+      hole_4_score,
+      hole_5_score,
+      hole_6_score,
+      hole_7_score,
+      hole_8_score,
+      hole_9_score,
+      hole_10_score,
+      hole_11_score,
+      hole_12_score,
+      hole_13_score,
+      hole_14_score,
+      hole_15_score,
+      hole_16_score,
+      hole_17_score,
+      hole_18_score
+    )
+  )
+),
+
+incomplete_rounds AS (
+  SELECT 
+    round_id,
+    'Incomplete Round' AS incomplete_flag
+  FROM unpivot_data
+  WHERE score <> 0
+  GROUP BY round_id
+  HAVING COUNT(score) <> 9 AND COUNT(score) <> 18
+)
+
+select 
+  u.round_id,
+  u.course_id,
+  cd.coursename as course_name,
+  LPAD(CAST(zip_code AS STRING), 5, '0') AS zip_code,
+  u.date_played,
+  cd.hole,
+  case
+    when cd.hole <10 then 'Front'
+    else 'Back'
+  end as front_or_back,
+  cd.par,
+  u.score,
+  cd.yardage,
+  u.score - cd.par as net_score,
+  case
+    when u.score - cd.par <= -2 then 'Eagle or Better'
+    when u.score - cd.par = -1 then 'Birdie'
+    when u.score - cd.par = 0 then 'Par'
+    when u.score - cd.par = 1 then 'Bogey'
+    when u.score - cd.par = 2 then 'Double-Bogey'
+    when u.score - cd.par >= 3 then 'Triple-Bogey or Worse' 
+  end as result,
+  ir.incomplete_flag
+from unpivot_data u
+left join birdies-golf-data.18birdies_raw_data.course_detail cd on u.course_id = cd.ClubId and u.hole_number = cd.Hole
+full join incomplete_rounds ir on u.round_id = ir.round_id
+where u.score > 0

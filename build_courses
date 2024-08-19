@@ -1,0 +1,6 @@
+create or replace table birdies-golf-data.18birdies_raw_data.courses as
+
+select distinct
+  clubData_____clubId as course_id,
+  clubData_____name as course_name
+from birdies-golf-data.18birdies_raw_data.raw_data 

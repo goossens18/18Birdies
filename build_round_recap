@@ -1,0 +1,59 @@
+create or replace table birdies-golf-data.18birdies_raw_data.round_recap as
+
+with round_totals as (
+  SELECT
+    round_id,
+    concat(round_id,front_or_back) as round_key_9,
+    course_name,
+    date_played,
+    sum(score) as total_score,
+    sum(par) as total_par,
+    sum(yardage) as total_yardage,
+    sum(net_score) as round_score,
+    row_number() over (order by date_played) as round_order
+  FROM `birdies-golf-data.18birdies_raw_data.round_detail` 
+  where incomplete_flag is null
+  group by all
+),
+
+dup_for_join as (
+select
+  round_key_9,
+  round_score,
+  round_order as lower_end,
+  round_order + 19 as upper_end
+from round_totals
+),
+
+last_twenty as (
+  select 
+    rt.round_key_9,
+    dj.round_score,
+    row_number() over (partition by rt.round_key_9 order by dj.round_score) as rank_rounds
+  from round_totals rt
+  CROSS JOIN dup_for_join dj
+  WHERE rt.round_order BETWEEN dj.lower_end AND dj.upper_end
+),
+
+handicap as (
+  select
+    round_key_9,
+    avg(round_score) as handicap
+  from last_twenty
+  where rank_rounds <= 8 
+  group by all
+)
+
+select 
+  rt.round_order,
+  rt.round_id,
+  rt.round_key_9,
+  rt.course_name,
+  rt.date_played,
+  rt.total_par,
+  rt.total_score as total_strokes,
+  rt.round_score as net_score,
+  rt.total_yardage,
+  h.handicap as current_handicap
+from round_totals rt
+join handicap h on rt.round_key_9 = h.round_key_9

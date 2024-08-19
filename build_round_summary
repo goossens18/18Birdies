@@ -1,0 +1,120 @@
+create or replace table birdies-golf-data.18birdies_raw_data.round_summary as
+
+select distinct
+
+  activityData__rounds__id as round_iD,
+  date(TIMESTAMP_MILLIS(activityData__rounds__timestamp)) as date_played ,
+  activityData__rounds__clubId__id as course_id,
+  activityData__rounds__score as final_score,
+  activityData__rounds__strokes as final_strokes,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then null
+    else activityData__rounds__holeStrokes__001  
+  end as hole_1_score,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then null
+    else activityData__rounds__holeStrokes__002  
+  end as hole_2_score,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then null
+    else activityData__rounds__holeStrokes__003  
+  end as hole_3_score,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then null
+    else activityData__rounds__holeStrokes__004  
+  end as hole_4_score,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then null
+    else activityData__rounds__holeStrokes__005  
+  end as hole_5_score,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then null
+    else activityData__rounds__holeStrokes__006  
+  end as hole_6_score,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then null
+    else activityData__rounds__holeStrokes__007  
+  end as hole_7_score,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then null
+    else activityData__rounds__holeStrokes__008 
+  end as hole_8_score,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then null
+    else activityData__rounds__holeStrokes__009
+  end as hole_9_score,
+
+  case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then activityData__rounds__holeStrokes__001
+    else activityData__rounds__holeStrokes__010  
+  end as hole_10_score,
+
+case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then activityData__rounds__holeStrokes__002
+    else activityData__rounds__holeStrokes__011
+  end as hole_11_score,
+
+case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then activityData__rounds__holeStrokes__003
+    else activityData__rounds__holeStrokes__012 
+  end as hole_12_score,
+
+case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then activityData__rounds__holeStrokes__004
+    else activityData__rounds__holeStrokes__013 
+  end as hole_13_score,
+
+case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then activityData__rounds__holeStrokes__005
+    else activityData__rounds__holeStrokes__014 
+  end as hole_14_score,
+
+case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then activityData__rounds__holeStrokes__006
+    else activityData__rounds__holeStrokes__015 
+  end as hole_15_score,
+
+case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then activityData__rounds__holeStrokes__007
+    else activityData__rounds__holeStrokes__016 
+  end as hole_16_score,
+
+case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then activityData__rounds__holeStrokes__008
+    else activityData__rounds__holeStrokes__017 
+  end as hole_17_score,
+
+case 
+    when activityData__rounds__id in ('abbc3dc1-1232-11ef-b2dc-06dc4cbfdf1e','827f4150-f6b7-11ee-8a0e-02627b678af7','f48abf30-f069-11ee-8e81-0ab15c307481','47788790-6aaa-11ee-8544-0a202d83cc26','2122dcc0-622c-11ee-8963-02627b678af7','1b5ed240-2293-11ee-a8d1-029b90f35a4e','23153860-e6d1-11ed-a731-02627b678af7','2dc34fb0-e3af-11ed-b99d-0a202d83cc26','95303500-0d2c-11ed-ac81-02627b678af7','76773bc0-c805-11ec-a349-06dc4cbfdf1e','d8f98460-a828-11e9-a465-06dc4cbfdf1e','e62360b0-99fb-11e9-91e7-029b90f35a4e','16c34e30-92f2-11e9-833e-029b90f35a4e','288c1790-8966-11e9-b3a6-029b90f35a4e','e3c38e40-8861-11e9-b3a6-029b90f35a4e') then activityData__rounds__holeStrokes__009
+    else activityData__rounds__holeStrokes__018 
+  end as hole_18_score,
+  
+  activityData__rounds__stats__aces as total_aces,
+  activityData__rounds__stats__doubleEagleOrBetter as total_albatross,
+  activityData__rounds__stats__eagles as total_eagles,
+  activityData__rounds__stats__birdies as total_birdies,
+  activityData__rounds__stats__pars as total_pars,
+  activityData__rounds__stats__bogeys as total_bogeys,
+  activityData__rounds__stats__doubleBogeyOrWorse as total_double_bogeys_or_worse,
+  activityData__rounds__stats__fairwayLefts as fairway_misses_left,
+  activityData__rounds__stats__fairwayMiddles as fairway_hit,
+  activityData__rounds__stats__fairwayRights as fairway_misses_right,
+  activityData__rounds__stats__fairwayShorts as fairway_misses_short,
+  activityData__rounds__stats__fairwayHoleCount as possible_fairways,
+  activityData__rounds__stats__gir as total_success_gir,
+  activityData__rounds__stats__girLefts as total_gir_miss_left,
+  activityData__rounds__stats__girRights as total_gir_miss_right,
+  activityData__rounds__stats__girShorts as total_gir_miss_short,
+  activityData__rounds__stats__girLongs as total_gir_miss_long,
+  activityData__rounds__stats__girNoChances as total_gir_miss_no_chance
+
+from birdies-golf-data.18birdies_raw_data.raw_data 
