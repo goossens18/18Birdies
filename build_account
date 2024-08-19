@@ -1,0 +1,13 @@
+create or replace table birdies-golf-data.18birdies_raw_data.account as
+
+select distinct
+
+  accountData__userId as user_id,
+  accountData__userName as user_name,
+  accountData__accountCreatedSource as input_source,
+  FORMAT_TIMESTAMP('%m/%d/%Y',(TIMESTAMP_MILLIS(accountData__registerTimestamp))) as creation_date,
+  accountData__birthYear as birth_year,
+  accountData__mobileNumber as phone_number,
+  accountData__email as email
+
+from birdies-golf-data.18birdies_raw_data.raw_data 
